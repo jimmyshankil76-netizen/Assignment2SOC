@@ -80,3 +80,54 @@ def main():
 
 if __name__ == "__main__":
     main()
+plt.figure(figsize=(18, 12))
+
+pos = nx.spring_layout(
+    subG,
+    k=0.5,
+    seed=42
+)
+
+node_sizes = [
+    100 + subG.degree(node) * 15
+    for node in subG.nodes()
+]
+
+nx.draw_networkx_nodes(
+    subG,
+    pos,
+    node_size=node_sizes,
+    node_color="tab:blue",
+    alpha=0.85
+)
+
+nx.draw_networkx_edges(
+    subG,
+    pos,
+    arrows=True,
+    edge_color="gray",
+    alpha=0.25,
+    width=0.7
+)
+
+nx.draw_networkx_labels(
+    subG,
+    pos,
+    font_size=7
+)
+
+plt.title(
+    "YouTube Reply Network: Samsung vs iPhone",
+    fontsize=18
+)
+
+plt.axis("off")
+plt.tight_layout()
+
+plt.savefig(
+    "outputs/figures/youtube_reply_network.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.show()
